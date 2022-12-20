@@ -1,0 +1,29 @@
+.header__navlist{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 20%;
+    &.admin{
+      width: 40%;
+    }
+    
+}
+
+a{
+   text-decoration: none;
+}
+
+.nav-list-item{
+    cursor: pointer;
+    color:#006C99;
+    transition: .4s;
+    border:1px solid transparent;
+     &:hover{
+        border-bottom: 1px solid #006C99;
+        color: #006C99;
+     }
+     &.active{
+        border-bottom: 1px solid #006C99;
+        color: #006C99;
+     }
+}

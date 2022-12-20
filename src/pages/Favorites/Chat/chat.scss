@@ -1,0 +1,116 @@
+.chat{
+    background: rgba(222, 231, 231, 1);
+    display: flex;
+    height: 98%;
+    &__left{
+        width: 30%;
+        border-right:1px solid white;
+        padding-top: 20px;
+        &__card{
+            border-bottom: 1px solid white;
+            display: flex;
+            align-items: center;
+
+            &.active{
+                background: white;
+            }
+            &__avatar{
+               border-radius:20px;
+               width: 40px;
+               height: 40px;
+               overflow: hidden;
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               padding: 5px;
+               img{
+                // height: 80%;
+                border-radius:10px;
+               }
+            }
+        }
+    }
+    &__right{
+        margin: 20px auto;
+        width: 60%;
+        background: white;
+        
+        &__top{
+            padding: 15px;
+            border-bottom:1px solid rgba(3, 71, 170, 1);
+            margin-bottom: 20px;
+            height: 70px;
+            &__name{
+                display: flex;
+                align-items: center;
+                p{
+                    margin-left: 20px;
+                }
+            }
+            &__product{
+                display: flex;
+                align-items: center;
+
+                &__img{
+                    width: 110px;
+                    height: 69px;
+                    margin-right: 20px;
+                }
+            }
+        }
+        &__msgs{
+            overflow-y: scroll;
+            &__wrapper{
+               display: flex;
+               justify-content: end;
+               &.me{
+                justify-content: start;
+               }
+            }
+            &__msg{
+               width: 70%;
+               padding: 7px;
+               margin-bottom: 10px;
+            margin: 15px;
+               border-radius: 8px;
+
+                &.me{
+                    background:  #EDEFF2;
+                   color:black;
+                //    margin-right: 10px;
+
+                }
+                background: #0347AA ;
+                color:white
+            }
+        }
+    }
+    &__form{
+        display: flex;
+        outline:1px solid rgba(3, 71, 170, 1);
+
+        &__file, &__send{
+            width: 59px;
+            height: 63px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid rgba(3, 71, 170, 1);
+            img{
+                width: 21px;
+                height: 22px;
+            }
+            cursor: pointer;
+        }
+        input{
+            border:1px solid transparent;
+            width: calc(100% - 118px);
+        }
+        &__send{
+            background: rgba(3, 71, 170, 1);
+
+        }
+
+    }
+  
+}

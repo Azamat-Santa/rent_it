@@ -1,0 +1,14 @@
+.footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 130px;
+    h3{
+        line-height: 0;
+    }
+}
+.footer-wrapper{
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
+    background: #DEE7E7;
+}

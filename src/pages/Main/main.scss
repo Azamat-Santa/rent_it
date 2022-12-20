@@ -1,0 +1,68 @@
+
+.main__product {
+    margin-bottom: 70px;
+    &__left {
+        width: 20%;
+    }
+    &__right {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-gap: 20px;
+        &:first-child{
+            border: 1px solid red;
+        }
+    }
+}
+
+.main-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 56px;
+    font-weight: 700;
+    margin-bottom: 45px;
+}
+.faq{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 45%);
+    grid-gap: 40px;
+    margin-bottom: 30px;
+    font-size: 22px;
+    font-weight: 600;
+    &__block{
+        
+    }
+    &__question{
+        border-bottom: 1px solid rgba(0, 65, 107, 1);
+        cursor: pointer;
+        position: relative;
+        &::after{
+            position: absolute;
+            content:'';
+            width: 15px;
+            height: 10px;
+            position: absolute;
+            top: 6px;
+            right: 0;
+            background-image: url('../../assets/img/arrowDown.png');
+            background-size: 100% 100%;
+        }
+    }
+    &__answer{
+    font-weight: 500;
+        
+
+    }
+}
+.main__product__right:nth-child(1){
+  display: none;
+}
+
+.search-block{
+   width: 100%;
+   position: absolute;
+   background: white;
+   padding: 20px;
+   border-radius: 15px;
+}

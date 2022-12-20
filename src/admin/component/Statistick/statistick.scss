@@ -1,0 +1,11 @@
+.statistick{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    &__block{
+        margin-bottom: 40px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+    }
+}

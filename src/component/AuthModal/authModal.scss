@@ -1,0 +1,130 @@
+.modal-login__handler {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .5s;
+    border-bottom: 2px solid transparent;
+    margin-bottom: 50px;
+    &__btn.active {
+        border-bottom: 2px solid rgba(0, 78, 100, 1);
+
+    }
+}
+
+.ant-modal-content {
+    background: rgba(249, 250, 253, 1);
+   
+}
+
+.modal-login__icons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 60%;
+    margin: 15px auto;
+
+    &>img {
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+    }
+}
+
+.ant-modal-body {
+    padding: 30px 110px !important;
+    max-height: 80vh;
+    img{
+        height: 100%;
+    }
+}
+.ant-modal-content{
+    border-radius:30px;
+}
+
+.modal-login__content__register {
+  
+    transition: .4s;
+    // opacity: 0;
+    // transform: scale(0);
+    // position: absolute;
+    // top: 60%;
+    // left: 50%;
+    // width: 60%;
+    // transform:translate(-60%, -50%);
+    display: none;
+    &.active {
+        // transform: scale(1);
+        opacity: 1;
+        display: block;
+    }
+}
+
+.modal-login__content__login {
+    transition: .4s;
+    // opacity: 0;
+    // transform: scale(0);
+    // position: absolute;
+    // top: 60%;
+    // left: 60%;
+    // width: 60%;
+    // transform:translate(-60%, -50%);
+    display: none;
+
+    &.active {
+        // transform: scale(1);
+        opacity: 1;
+        display: block;
+       
+    }
+}
+
+.forgot-password {
+    text-align: center;
+    cursor: pointer;
+}
+
+.registration-agreement {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+
+    label {
+        font-size: 12px !important;
+        margin-left: 10px;
+    cursor: pointer;
+
+    }
+}
+.form-input{
+    border-bottom:1px solid rgba(136, 168, 182, 1);
+    width: 100%;
+    margin-bottom: 20px;
+    background: transparent;
+    font-size: 20px;
+
+}
+.block-input{
+    position: relative;
+}
+.input__error{
+    color:red;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    font-size: 14px;
+    width: 200px;
+    &.file{
+    bottom: -22px;
+    }
+    &.add{
+        bottom: -25px;
+    }
+    &.booking{
+        bottom: -22px;
+    }
+}

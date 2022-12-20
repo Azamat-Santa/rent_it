@@ -1,0 +1,17 @@
+
+.main__input__search {
+    height: 50px;
+    position: relative;
+    margin-bottom: 70px;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.main__input__search__icon {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 10px;
+    left: 10px;
+    z-index: 4;
+}

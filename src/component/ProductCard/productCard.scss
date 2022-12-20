@@ -1,0 +1,25 @@
+.product-card__icon__favorite{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 36px !important;
+    height: 35px;
+    z-index: 1;
+
+    cursor: pointer;
+}
+.product-card{
+    position: relative;
+    font-weight: 600;
+    font-size: 16.397px;
+    cursor: pointer;
+    margin-right: 15px;
+    margin-left: 15px;
+    z-index: 2;
+    // margin-right: 20px !important;
+}
+.product-card__img{
+    width: 100%;
+    border-radius:30px;
+    height: 200px;
+}

@@ -1,0 +1,35 @@
+.category{
+    box-shadow: 5px 7px 15px 0px rgba(52, 58, 61, 0.3);
+    border-radius: 10px;
+    width: 20%;
+    margin-bottom: 30px;
+    &__title{
+    padding: 5px;
+    }
+&__item{
+  display: flex;
+  &__left{
+    width: 70%;
+    border-right: 1px solid rgba(224, 224, 224, 1);
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
+
+    padding: 5px;
+    
+  }
+  &__right{
+  padding: 5px;
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+
+    display: flex;
+    width: 30%;
+    align-items: center;
+    justify-content: space-around;
+    img{
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        display: block;
+    }
+  }
+}
+}

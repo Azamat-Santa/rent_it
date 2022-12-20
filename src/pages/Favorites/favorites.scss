@@ -1,0 +1,41 @@
+.favorite-page{
+    display: flex;
+    justify-content: space-between;
+    min-height: calc(100vh - 240px) ;
+    &__right{
+        display: flex;
+        flex-direction: column;
+        width: 20%;
+        &__item{
+         padding: 15px 15px;
+            // border-bottom: 1px solid rgba(0, 65, 107, 1);
+            cursor: pointer;
+            &.active{
+                background: #006C99;
+                color: white;
+                border-radius: 20px;
+
+            }
+        }
+    }
+    &__left{
+        width: 70%;
+        height: 70vh;
+        &__navigate{
+            display: flex;
+            &__item{
+                margin-right: 20px;
+                margin-bottom: 50px;
+                cursor:pointer;
+                &.active{
+                    border-bottom:1px solid rgba(0, 65, 107, 1);
+                }
+            }
+        }
+        &__favorite{
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-gap: 20px;
+        }
+    }
+}

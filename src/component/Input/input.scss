@@ -1,0 +1,29 @@
+.search-main-input{
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    color:black;
+    position: relative;
+    font-size: 20px;
+    z-index: 2;
+    border: 1px solid rgba(91, 90, 90, 1);
+    border-radius:25px;
+    padding-left: 50px;
+   
+    &:focus + .main__input__search__icon{
+            display: none;
+    }
+}
+.form-input{
+    border-bottom:1px solid rgba(136, 168, 182, 1);
+    width: 100%;
+    margin-bottom: 20px;
+    background: transparent;
+
+}
+.form-review-input{
+    border: 1px solid rgba(0, 78, 100, 1);
+    padding: 8px 10px;
+    width: 100%;
+    margin-bottom: 15px;
+}

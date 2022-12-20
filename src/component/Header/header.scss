@@ -1,0 +1,29 @@
+
+
+.header {
+    
+    height: 70px;
+    color: #006C99;
+    margin-bottom: 40px;
+    border-bottom: 1px solid rgba(0, 108, 153, 1);
+
+    &__logo {
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 800;
+        font-size: 46px;
+        line-height: 67px;
+        cursor: pointer;
+        font-family: 'Lato', sans-serif;
+    }
+    &__account{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 8%;
+        cursor: pointer;
+        img{
+            width: auto;
+        }
+    }
+}

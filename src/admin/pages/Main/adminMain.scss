@@ -1,0 +1,45 @@
+.admin {
+    &__title {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__modal {
+        &__remove {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+    &__category__list{
+        display: flex;
+        align-items: center;
+        margin-bottom: 40px;
+        &__item{
+            font-size: 26px;
+            font-weight: 600;
+            margin-right: 20px;
+            cursor: pointer;
+            &.active{
+                border-bottom: 1px solid #2118A8;
+            }
+        }
+    }
+
+}
+
+.table__columes__options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+width: 80px;
+    img {
+        margin-left: 9px;
+        cursor: pointer;
+        display: block;
+        width: 25px;
+        height: 25px;
+    }
+}

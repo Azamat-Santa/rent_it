@@ -1,0 +1,39 @@
+button{
+    border:none;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+}
+
+.button {
+    border: none;
+    background: #006C99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    height: 40px;
+    transition: .4s;
+    border-radius:15px;
+    padding: 0 20px;
+    min-width: 120px;
+    &:hover{
+        color:white;
+    }
+}
+
+.base-button {
+    width: 150px;
+    margin: 40px auto 10px auto;
+}
+.product-button{
+    width: 50%;
+    height: 50px;
+    margin: 20px 0 0 0;
+}
+.review-button{
+    margin: 0;
+    width: 150px;
+height: 50px;
+text-align: center;
+}
