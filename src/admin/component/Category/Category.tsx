@@ -1,7 +1,7 @@
-import { category } from "../../../api/categories";
-import Title from "../../../component/Title/Title";
+import { category } from "../../../core/api/categories";
+import Title from "../../../component/UI/Title/Title";
 import "./category.scss";
-import Spinner from "../../../component/Spinner/Spinner";
+import Spinner from "../../../component/UI/Spinner/Spinner";
 import { useState } from 'react';
 import { img } from "../../../assets/img/indexImg";
 

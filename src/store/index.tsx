@@ -1,18 +1,18 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import   authSlice   from "./reducers/user";
-import { authUser } from '../api/userAuth'
+import { authUser } from '../core/api/userAuth'
 import { useDispatch } from "react-redux";
-import { userApi } from '../api/userApi';
-import { adApi } from "../api/ad";
-import { category } from './../api/categories';
+import { userApi } from '../core/api/userApi';
+import { adApi } from "../core/api/ad";
+import { category } from '../core/api/categories';
 import adSlice from "./reducers/adSlice";
-import { reviewApi } from './../api/review';
+import { reviewApi } from '../core/api/review';
 import uiSlice from './reducers/ui';
-import { bookingApi } from './../api/booking';
-import { techSupportApi } from './../api/techSupport';
+import { bookingApi } from '../core/api/booking';
+import { techSupportApi } from '../core/api/techSupport';
 import techSupportSlice from './reducers/techSupport';
-import { chatApi } from './../api/chat';
-import { statistickApi } from "../api/statistick";
+import { chatApi } from '../core/api/chat';
+import { statistickApi } from "../core/api/statistick";
 
 
 const rootReducer = combineReducers({

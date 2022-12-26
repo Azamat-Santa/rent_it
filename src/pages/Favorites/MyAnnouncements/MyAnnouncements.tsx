@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Title from "../../../component/Title/Title";
+import Title from "../../../component/UI/Title/Title";
 import "./myAnnouncements.scss";
 import MyAd from "./MyAd/MyAd";
 import BookingRequests from "./BookingRequests/BookingRequests";
-import { navlistMyAd } from "./const";
+import { navlistMyAd } from "../../../consts/navlistMyAd";
 
 
 const MyAnnouncements = ({ openEditProduct }: any) => {

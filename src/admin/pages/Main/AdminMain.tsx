@@ -1,23 +1,24 @@
 import { message, Modal, Table } from "antd";
 import React from "react";
-import { userApi } from "../../../api/userApi";
-import Button from "../../../component/Button/Button";
-import Title from "../../../component/Title/Title";
+import { userApi } from "../../../core/api/userApi";
+import Button from "../../../component/UI/Button/Button";
+import Title from "../../../component/UI/Title/Title";
 import editIcon from "../../../assets/img/editIcon.png";
 import deleteIcon from "../../../assets/img/Delete.png";
 import newCategory from '../../../assets/img/newCategory.png'
 import "./adminMain.scss";
 import { useState } from "react";
-import Input from "../../../component/Input/Input";
-import Spinner from "../../../component/Spinner/Spinner";
-import { adApi } from "../../../api/ad";
+import Input from "../../../component/UI/Input/Input";
+import Spinner from "../../../component/UI/Spinner/Spinner";
+import { adApi } from "../../../core/api/ad";
 import Statistick from "../../component/Statistick/Statistick";
-import { navListAdminMain } from "./const";
-import AdminModalConfirm from "./AdminModalConfirm";
-import AdminModalNewUser from "./AdminModalNewUser";
+import AdminModalConfirm from "../../../component/Modal/AdminModalConfirm";
+import AdminModalNewUser from "../../../component/Modal/AdminModalNewUser";
 import Category from "../../component/Category/Category";
 import {useNavigate } from 'react-router-dom';
-import { category } from "../../../api/categories";
+import { category } from "../../../core/api/categories";
+import { routeEndpoints } from './../../../consts/routeEndpoints';
+import { navListAdminMain } from "../../../consts/navListAdminMain";
 
 const AdminMain = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,7 +26,7 @@ const AdminMain = () => {
   const [isModalNewUserOpen, setIsModaNewUserlOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [removwUserId, setRemovwUserId] = useState(0);
-  const [removwAdId, setRemovwAdId] = useState(0);
+  const [removwAdId, setRemovwAdId] = useState<number>(0);
   const [categoryName,setCategoryName] = useState('')
   const [inputList, setInputList] = useState<any>([{ value: "" }]);
   const openTab = (e: any) => setActiveTab(+e.target.dataset.index);
@@ -52,7 +53,7 @@ const AdminMain = () => {
     data: dataAd,
     isLoading: isLoadingAd,
     refetch,
-  } = adApi.useFetchAllAdsQuery();
+  } = adApi.useFetchAllAdsQuery(0);
   const [addNewCategory,{data:newCategoryData,isLoading:newCategoryLoading}] = category.useAddNewCategoryMutation()
 
   const showModal = () => {
@@ -356,7 +357,7 @@ const AdminMain = () => {
             if(navListAdminMain[activeTab].title === "Категории"){
               setIsModalCategoryOpen(true)
             }else if(navListAdminMain[activeTab].title === "Товары"){
-              navigate('/newProduct')
+              navigate(routeEndpoints.newProduct)
             }else{
               showModalNewUser()
             }

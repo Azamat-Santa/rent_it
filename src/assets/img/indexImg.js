@@ -23,6 +23,11 @@ import Rating from './Rating.png'
 import registrImg from './registrImg.png'
 import searchIcon from './searchIcon.png'
 import send from './send.png'
+import exImg1 from './exImg1.png'
+import exImg2 from './exImg2.png'
+import exImg3 from './exImg3.png'
+import exImg4 from './exImg4.png'
+
 
 export const img = {
     msg,
@@ -50,6 +55,10 @@ export const img = {
     banner,
     arrowRight,
     accImg,
-    plus
+    plus,
+    exImg1,
+    exImg2,
+    exImg3,
+    exImg4,
 
 }

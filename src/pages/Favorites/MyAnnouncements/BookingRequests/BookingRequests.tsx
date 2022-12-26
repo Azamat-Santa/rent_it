@@ -1,8 +1,8 @@
 
-import { bookingApi } from "./../../../../api/booking";
+import { bookingApi } from "../../../../core/api/booking";
 import "./bookingRequest.scss";
 import { message } from 'antd';
-import BookingConfirmCard from "../component/BookingConfirmCard";
+import BookingConfirmCard from "../../../../component/Card/BookingConfirmCard";
 const BookingRequests = () => {
   const { data: getBookingConfirm, isLoading: isLoadingGetBookingConfirm } = bookingApi.useGetBoookingConfirmQuery("");
   const [putBoookingAccept,{ data: putBookingConfirmAccept, isLoading: isLoadingPutBookingConfirmAccept }] = bookingApi.usePutBoookingAcceptMutation();

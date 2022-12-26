@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Rate } from "antd";
-import { userApi } from "../../api/userApi";
-import Title from "../../component/Title/Title";
+import { userApi } from "../../core/api/userApi";
+import Title from "../../component/UI/Title/Title";
 import "./ownerProfile.scss";
-import ProductCard from "../../component/ProductCard/ProductCard";
+import ProductCard from "../../component/Card/ProductCard/ProductCard";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import Spinner from "../../component/Spinner/Spinner";
+import Spinner from "../../component/UI/Spinner/Spinner";
 
 const navlist = [
   {

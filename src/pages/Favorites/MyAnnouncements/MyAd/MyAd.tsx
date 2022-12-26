@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import Spinner from "./../../../../component/Spinner/Spinner";
+import Spinner from "../../../../component/UI/Spinner/Spinner";
 import { EditOutlined } from "@ant-design/icons";
 import { message, Modal, Switch } from "antd";
-import { adApi } from "../../../../api/ad";
-import Title from "./../../../../component/Title/Title";
+import { adApi } from "../../../../core/api/ad";
+import Title from "../../../../component/UI/Title/Title";
 import { NavLink } from 'react-router-dom';
-import Button from './../../../../component/Button/Button';
+import Button from '../../../../component/UI/Button/Button';
 import "../myAnnouncements.scss";
-import AnnouncementsCard from "../component/AnnouncementsCard";
+import AnnouncementsCard from "../../../../component/Card/AnnouncementsCard";
+import { routeEndpoints } from "../../../../consts/routeEndpoints";
 
 const MyAd = ({ openEditProduct }: any) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -75,7 +76,7 @@ const MyAd = ({ openEditProduct }: any) => {
         </button>
       </Modal>
       <div style={{ display: "flex", justifyContent: "end" , marginBottom:'20px'}}>
-        <NavLink to={"/newProduct"}>
+        <NavLink to={routeEndpoints.newProduct}>
           <Button text="Создать объявление" />
         </NavLink>
       </div>

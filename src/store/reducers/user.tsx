@@ -1,24 +1,23 @@
-import { $CombinedState, createSlice } from '@reduxjs/toolkit'
-import { authUser, UserResponse } from '../../api/userAuth'
-import { IUser } from '../../types/types'
+import { createSlice } from '@reduxjs/toolkit'
+import { authUser } from '../../core/api/userAuth'
+import { IUserInComplete } from '../../core/types/IUserInComplete'
 import type { RootState } from '../index'
 
 type AuthState = {
   isAuth: boolean | null
-  user: IUser | {}
+  user: IUserInComplete | {}
 }
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState: { isAuth: false, user:{} } as AuthState,
+  initialState: { isAuth: true, user: {} } as AuthState,
   reducers: {
     checkIsAuth:(state,action)=>{
       state.isAuth = true
-      
     },
     logOut:(state)=>{
       state.isAuth = false
-      state.user = {}
+      state.user = {} 
       localStorage.removeItem('accessTocken')
       localStorage.removeItem('refreshTocken')
 
@@ -29,7 +28,6 @@ const authSlice = createSlice({
     builder.addMatcher(
       authUser.endpoints.login.matchFulfilled,
       (state, { payload }) => {
-        console.log(payload)
         state.user = payload
         state.isAuth = true
         localStorage.setItem('accessTocken',payload.accessToken)

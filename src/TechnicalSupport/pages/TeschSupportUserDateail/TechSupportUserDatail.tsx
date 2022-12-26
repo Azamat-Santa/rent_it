@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import InputEdit from './../../../component/InputEdit/InputEdit';
-import { techSupportApi } from './../../../api/techSupport';
+import InputEdit from '../../../component/UI/InputEdit/InputEdit';
+import { techSupportApi } from '../../../core/api/techSupport';
 import { useSelector } from 'react-redux';
 import './supportDatail.scss'
 import { message, Modal } from 'antd';
-import Spinner from '../../../component/Spinner/Spinner';
+import Spinner from '../../../component/UI/Spinner/Spinner';
 
 const TechSupportUserDatail = () => {
     // const [acceptUser,{data:acceptData,isLoading:acceptIsLoading}] = techSupportApi.useAcceptUserMutation()

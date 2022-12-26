@@ -3,8 +3,8 @@ import './productEdit.scss'
 import vel from '../../../assets/img/vel.png'
 import vel1 from '../../../assets/img/vel1.png'
 import vel2 from '../../../assets/img/vel2.png'
-import InputEdit from '../../../component/InputEdit/InputEdit';
-import EditTextArea from '../../../component/EditTextArea/EditTextArea';
+import InputEdit from '../../../component/UI/InputEdit/InputEdit';
+import EditTextArea from '../../../component/UI/EditTextArea/EditTextArea';
 
 const ProductEdit = () => {
    

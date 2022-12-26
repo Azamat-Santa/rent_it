@@ -1,10 +1,8 @@
-import { $CombinedState, createSlice } from '@reduxjs/toolkit'
-import { adApi } from '../../api/ad'
+import { createSlice } from '@reduxjs/toolkit'
 
 
 type AdState = {
   user: any
-  
 }
 
 const techSupportSlice = createSlice({
@@ -15,17 +13,10 @@ const techSupportSlice = createSlice({
        state.user = payload
    }
   },
-
-
-    
-
-  
-  
-
 })
 
 export default techSupportSlice.reducer
 
 export const {userDatail} = techSupportSlice.actions
 
-// export const selectCurrentUser = (state: RootState) => state.user.user
+

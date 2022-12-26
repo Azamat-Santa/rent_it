@@ -1,13 +1,13 @@
 import "./chat.scss";
 import { useState, useEffect } from "react";
-import Title from "../../../component/Title/Title";
+import Title from "../../../component/UI/Title/Title";
 import { useRef } from "react";
-import { chatApi } from "../../../api/chat";
+import { chatApi } from "../../../core/api/chat";
 import jwt_decode from "jwt-decode";
-import Spinner from "../../../component/Spinner/Spinner";
+import Spinner from "../../../component/UI/Spinner/Spinner";
 import * as SockJS from "sockjs-client";
 import * as Stomp from "stompjs";
-import ChatForm from "./component/ChatForm";
+import ChatForm from "../../../component/ChatForm";
 
 const Chat = () => {
   const [activeChat, setActiveChat] = useState(0);

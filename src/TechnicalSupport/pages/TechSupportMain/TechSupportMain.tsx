@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import Title from '../../../component/Title/Title';
+import Title from '../../../component/UI/Title/Title';
 import { Table } from 'antd';
-import Spinner from './../../../component/Spinner/Spinner';
-import { techSupportApi } from '../../../api/techSupport';
+import Spinner from '../../../component/UI/Spinner/Spinner';
+import { techSupportApi } from '../../../core/api/techSupport';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { userDatail } from '../../../store/reducers/techSupport';

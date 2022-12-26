@@ -1,9 +1,9 @@
 import { useRef,useState } from "react";
 import "./fullRegistration.scss";
-import Title from "../../component/Title/Title";
+import Title from "../../component/UI/Title/Title";
 import { Checkbox, DatePicker, message } from "antd";
 import { useFormik } from "formik";
-import { authUser } from "../../api/userAuth";
+import { authUser } from "../../core/api/userAuth";
 import jwt_decode from "jwt-decode";
 import stepIcon1 from "../../assets/img/fullRegStep1.png";
 import stepIcon2 from "../../assets/img/fullRegStep2.png";
@@ -14,10 +14,11 @@ import {
   ValidationSchemaStepThree,
   ValidationSchemaStepTwo,
   ValidationSchemaStepTwoResidenceAddress,
-} from "./validationSchemaFullregistration";
-import StepOne from "./component/StepOne";
-import StepTwo from "./component/StepTwo";
-import StepThree from "./component/StepThree";
+} from "../../consts/validationSchema/validationSchemaFullregistration";
+import StepOne from "../../component/StepOne";
+import StepTwo from "../../component/StepTwo";
+import StepThree from "../../component/StepThree";
+import { routeEndpoints } from "../../consts/routeEndpoints";
 
 const FullRegistration = () => {
   const [step, setStep] = useState(1);
@@ -120,7 +121,7 @@ const FullRegistration = () => {
         }
         if (data?.data) {
           message.success("Вы успешно прошли полную регистрацию!!!", 3);
-          history("/product");
+          history(routeEndpoints.productDatail);
         }
       });
     },

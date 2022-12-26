@@ -5,16 +5,16 @@ import axios from "axios";
 import { LoadingOutlined } from "@ant-design/icons";
 import { DatePicker, message, Spin } from "antd";
 import { useFormik } from "formik";
-import Title from "../../component/Title/Title";
-import InputEdit from "../../component/InputEdit/InputEdit";
-import EditTextArea from "../../component/EditTextArea/EditTextArea";
-import Spinner from "../../component/Spinner/Spinner";
-import { useGetCategoryByIdQuery } from "../../api/categories";
-import { sortInitialState } from "../../helpers";
-import { adApi } from "../../api/ad";
+import Title from "../../component/UI/Title/Title";
+import InputEdit from "../../component/UI/InputEdit/InputEdit";
+import EditTextArea from "../../component/UI/EditTextArea/EditTextArea";
+import Spinner from "../../component/UI/Spinner/Spinner";
+import { useGetCategoryByIdQuery } from "../../core/api/categories";
+import { sortInitialState } from "../../core/helpers";
+import { adApi } from "../../core/api/ad";
 import "./newProduct.scss";
-import { validationSchemaNewAd } from "./validationSchemaNewAd";
-import { useDebounce } from "../../hook/useDebounce";
+import { validationSchemaNewAd } from "../../consts/validationSchema/validationSchemaNewAd";
+import { useDebounce } from "../../core/hook/useDebounce";
 import { img } from "../../assets/img/indexImg";
 
 

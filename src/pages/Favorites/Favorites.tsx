@@ -8,7 +8,7 @@ import Chat from "./Chat/Chat";
 import SettingsComponent from "./SettingsComponent/SettingsComponent";
 import TabContent from "./TabContent/TabContent";
 import ProductEdit from './ProductEdit/ProductEdit';
-import { navlistFavorite } from "./const";
+import { navlistFavorite } from "../../consts/navlistFavorite";
 const Favorites = () => {
    const {tabId} = useParams()
    const [activeTab, setActiveTab] = useState(Number(tabId));
@@ -47,7 +47,7 @@ const Favorites = () => {
                 ? "favorite-page__right__item active"
                 : "favorite-page__right__item"
             }
-            key={el.path}
+            key={el.text}
           >
             {el.text}
           </div>

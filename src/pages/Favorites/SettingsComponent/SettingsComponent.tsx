@@ -1,8 +1,8 @@
-import Title from "../../../component/Title/Title";
+import Title from "../../../component/UI/Title/Title";
 import { useState } from "react";
 import './settingsComponent.scss'
-import InputEdit from "../../../component/InputEdit/InputEdit";
-import Button from "../../../component/Button/Button";
+import InputEdit from "../../../component/UI/InputEdit/InputEdit";
+import Button from "../../../component/UI/Button/Button";
 import axios from "axios";
 
 

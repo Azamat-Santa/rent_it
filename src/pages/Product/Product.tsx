@@ -1,34 +1,35 @@
 import { useState, useEffect, useMemo } from "react";
 import SearchBlock from "../../component/SearchBlock/SearchBlock";
 import "./product.scss";
-import Title from "../../component/Title/Title";
+import Title from "../../component/UI/Title/Title";
 import moment from "moment";
-import ProductCard from "./../../component/ProductCard/ProductCard";
+import ProductCard from "../../component/Card/ProductCard/ProductCard";
 import Modal from "antd/lib/modal/Modal";
 import { message, Rate } from "antd";
-import { useNavigate } from "react-router-dom";
-import Spinner from "../../component/Spinner/Spinner";
-import { reviewApi } from "../../api/review";
+import { useNavigate, useParams } from "react-router-dom";
+import Spinner from "../../component/UI/Spinner/Spinner";
+import { reviewApi } from "../../core/api/review";
 import { useSelector } from "react-redux";
-import { bookingApi } from "./../../api/booking";
+import { bookingApi } from "../../core/api/booking";
 import { useFormik } from "formik";
 import { Map2Gis } from "./../../component/Map2Gis/Map2Gis";
-import { adApi } from "../../api/ad";
-import { chatApi } from "./../../api/chat";
-import { userApi } from "../../api/userApi";
+import { adApi } from "../../core/api/ad";
+import { chatApi } from "../../core/api/chat";
+import { userApi } from "../../core/api/userApi";
 import {
   validationReviewSchema,
   ValidationSchemaForm,
-} from "./validationSchemaProduct";
-import { useDebounce } from "../../hook/useDebounce";
-import ProductModalCalendar from "./component/ProductModalCalendar";
-import ProductModalBookingForm from "./component/ProductModalBookingForm";
-import ProductInstruction from "./component/ProductInstruction";
-import ProductModalComplane from "./component/ProductModalComplane";
-import Review from "./component/Review";
+} from "../../consts/validationSchema/validationSchemaProduct";
+import { useDebounce } from "../../core/hook/useDebounce";
+import ProductModalCalendar from "../../component/Modal/ProductModalCalendar";
+import ProductModalBookingForm from "../../component/Modal/ProductModalBookingForm";
+import ProductInstruction from "../../component/ProductInstruction";
+import ProductModalComplane from "../../component/Modal/ProductModalComplane";
+import Review from "../../component/Review";
 import FormReview from "../../component/FormReview/FormReview";
-import ProductOwner from "./component/ProductOwner";
-import ProductImgsCarousel from "./component/ProductImgsCarousel";
+import ProductOwner from "../../component/ProductOwner";
+import ProductImgsCarousel from "../../component/ProductImgsCarousel";
+import { routeEndpoints } from "../../consts/routeEndpoints";
 
 const Product = ({ searchAd, setSearchAd }: any) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,12 +39,16 @@ const Product = ({ searchAd, setSearchAd }: any) => {
   const [year, setYear] = useState(moment().format("Y"));
   const [slideData, setSlideData] = useState<any>([]);
   const [isComplaintsModal, setIsComplaintsModal] = useState(false);
-  const productId = localStorage.getItem("productId");
+  const {productId}= useParams()
   const bookingGetAdOption = {
     productId,
     year,
     month,
   };
+ 
+  const user = useSelector(
+    (state: any) => state.user.user
+  );
   const { data: bookingDataAd, isLoading: bookingAdLoading } =
     bookingApi.useGetBoookingAdQuery(bookingGetAdOption);
   const showModal = () => {
@@ -60,17 +65,8 @@ const Product = ({ searchAd, setSearchAd }: any) => {
     postBoookingAd,
     { data: postBoookingAdData, isLoading: isLoadingpostBoookingAd },
   ] = bookingApi.usePostBoookingAdMutation();
-
   const { data: getReviewData, isLoading: isLoadingGetReview } =
     reviewApi.useGetReviewQuery(productId);
-
-  const userIsRegistrationComplete = useSelector(
-    (state: any) => state.user.user.registrationComplete
-  );
-  const verifiedByTechSupport = useSelector(
-    (state: any) => state.user.user.verifiedByTechSupport
-  );
-
   const [
     fetchOneAd,
     { data: datailData, isLoading: datailLoading, isSuccess },
@@ -79,11 +75,11 @@ const Product = ({ searchAd, setSearchAd }: any) => {
     adApi.useLazyFetchSimularAdQuery();
   const [getOwenerId, { data: ownerData, isLoading: isLoadingOwnerId }] =
     userApi.useLazyGetOwenerIdQuery();
-  const debouncedSearchTerm = useDebounce(searchAd, 500);
   const { data: searchData, isLoading: searchDataLoading } =
-    adApi.useSearchDataQuery(debouncedSearchTerm, { skip: searchAd === "" });
+    adApi.useSearchDataQuery(searchAd, { skip: searchAd === ""  || searchAd === undefined });
   const [addChat, { data: addChatData, isLoading: addChatLoading }] =
     chatApi.useAdChatMutation();
+    
   useEffect(() => {
     fetchOneAd(productId)
       .unwrap()
@@ -129,7 +125,7 @@ const Product = ({ searchAd, setSearchAd }: any) => {
         productId,
         dateFrom: value.dateFrom,
         dateTill: value.dateTill,
-        price: datailData.price,
+        price: datailData?.price,
       };
       postBoookingAd(options).then((data: any) => {
         if (data?.error) {
@@ -155,7 +151,7 @@ const Product = ({ searchAd, setSearchAd }: any) => {
     validationSchema: validationReviewSchema,
     onSubmit: (value) => {
       const option = {
-        productId: datailData.productId,
+        productId: datailData?.productId,
         ...value,
       };
       postReview(option).then((data: any) => {
@@ -165,28 +161,25 @@ const Product = ({ searchAd, setSearchAd }: any) => {
       });
     },
   });
-
-  const userId = useSelector((state: any) => state.user.user.id);
-
   const booking = () => {
-    if (userIsRegistrationComplete && verifiedByTechSupport === false) {
+    if (user.registrationComplete && user.verifiedByTechSupport === false) {
       setIsModalOpen(true);
-    } else if (userIsRegistrationComplete && verifiedByTechSupport) {
+    } else if (user.registrationComplete && user.verifiedByTechSupport) {
       showCalendarModal();
     } else {
-      history("/fullRegistration");
+      history(routeEndpoints.fullRegistration);
     }
   };
   const addChatFunc = () => {
     const parametr = {
-      sender_id: userId,
-      receiver_id: datailData.ownerId,
+      sender_id: user.id,
+      receiver_id: datailData?.ownerId,
     };
     addChat(parametr).then(() => {
       history("/favorite/2");
     });
   };
-   moment.updateLocale("ru", {
+  moment.updateLocale("ru", {
     weekdaysMin: ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
   });
   moment.updateLocale("ru", {
@@ -205,6 +198,20 @@ const Product = ({ searchAd, setSearchAd }: any) => {
       "Дек",
     ],
   });
+  const renderSearchData = () =>{
+    if(searchData && searchData !== undefined && searchData.length !== 0 ){
+      return searchData.map((product: any) => (
+        <ProductCard
+          product={product}
+          key={product.id}
+          showModal={showModal}
+        />
+      ))
+    }else if (searchDataLoading){
+      return  <div>{searchDataLoading ? <Spinner color="blue" /> : ""}</div>
+    }else{
+      return <div>По вашему запросу не найдено обьявлений!!</div>
+  }}
   return (
     <div className="product ">
       {datailData ? (
@@ -212,22 +219,8 @@ const Product = ({ searchAd, setSearchAd }: any) => {
           <div className="content">
             <SearchBlock searchAd={searchAd} setSearchAd={setSearchAd} />
             {searchAd.length !== 0 && (
-              <div className="main__product__right">
-                {searchData &&
-                searchData !== undefined &&
-                searchData.length !== 0 ? (
-                  searchData.map((product: any) => (
-                    <ProductCard
-                      product={product}
-                      key={product.id}
-                      showModal={showModal}
-                    />
-                  ))
-                ) : searchDataLoading ? (
-                  <div>{searchDataLoading ? <Spinner color="blue" /> : ""}</div>
-                ) : (
-                  <div>По вашему запросу не найдено обьявлений!!</div>
-                )}
+              <div className="main__product__right search-block">
+                {renderSearchData()}
               </div>
             )}
             <ProductModalCalendar
@@ -265,7 +258,6 @@ const Product = ({ searchAd, setSearchAd }: any) => {
 
             <div className="product__main__block">
               <ProductImgsCarousel slideData={slideData} />
-
               <div className="product__main__block__right">
                 <div className="product__main__block__right__top">
                   <Title
@@ -279,7 +271,7 @@ const Product = ({ searchAd, setSearchAd }: any) => {
                     margin="0px"
                   />
                   <div style={{ marginBottom: "20px" }}>
-                    <Rate disabled defaultValue={datailData.rating} />
+                    <Rate disabled defaultValue={Number(datailData.rating)} />
                     <span>{getReviewData && getReviewData.length} отзывов</span>
                   </div>
                 </div>

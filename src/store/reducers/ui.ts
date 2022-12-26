@@ -1,12 +1,10 @@
 import { $CombinedState, createSlice } from '@reduxjs/toolkit'
-import { adApi } from '../../api/ad'
-import { authUser, UserResponse } from '../../api/userAuth'
-import { IUser } from '../../types/types'
+import { adApi } from '../../core/api/ad'
+import { authUser } from '../../core/api/userAuth'
 import type { RootState } from '../index'
 
 type AdState = {
     backgound: any
-  
 }
 
 const uiSlice = createSlice({

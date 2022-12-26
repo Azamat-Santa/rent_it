@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import "./map2Gis.scss";
 import { Map, ObjectManager, Placemark, YMaps } from "@pbe/react-yandex-maps";
-import { adApi } from "../../api/ad";
-import Spinner from "../Spinner/Spinner";
+import { adApi } from "../../core/api/ad";
+import Spinner from "../UI/Spinner/Spinner";
 
 export const Map2Gis = ({ res }) => {
   const { data: mapProduct, isLoading: mapProductLoading, } = adApi.useFetchMapIdQuery(res.categoryId);

@@ -1,7 +1,7 @@
-import ProductCard from "../../../component/ProductCard/ProductCard";
+import ProductCard from "../../../component/Card/ProductCard/ProductCard";
 import { useState } from "react";
-import { adApi } from "../../../api/ad";
-import { bookingApi } from './../../../api/booking';
+import { adApi } from "../../../core/api/ad";
+import { bookingApi } from '../../../core/api/booking';
 
 const Favorite = () => {
   const [isFavorite, setIsFavorite] = useState({

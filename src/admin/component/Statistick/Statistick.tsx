@@ -13,9 +13,9 @@ import {
 } from "chart.js";
 import { Pie, Line } from "react-chartjs-2";
 import "./statistick.scss";
-import { statistickApi } from "../../../api/statistick";
+import { statistickApi } from "../../../core/api/statistick";
 import { useState,useEffect } from "react";
-import Title from "./../../../component/Title/Title";
+import Title from "../../../component/UI/Title/Title";
 import { DatePicker } from "antd";
 
 ChartJS.register(ArcElement, Tooltip, Legend);

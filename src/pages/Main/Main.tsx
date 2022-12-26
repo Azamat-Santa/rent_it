@@ -1,40 +1,49 @@
 import { useEffect, useState } from "react";
 import "./main.scss";
-import Title from "../../component/Title/Title";
+import Title from "../../component/UI/Title/Title";
 import Slider from "../../component/RecomendationSlider/RecomendationSlider";
-import { categoryList } from "../../data/categoryList";
-import ProductCard from "../../component/ProductCard/ProductCard";
+import ProductCard from "../../component/Card/ProductCard/ProductCard";
 import SearchBlock from "../../component/SearchBlock/SearchBlock";
-import { faqData } from "./faqData";
-import { adApi } from "../../api/ad";
-import Spinner from "../../component/Spinner/Spinner";
+import { faqData } from "../../consts/faqData";
+import { adApi } from "../../core/api/ad";
+import Spinner from "../../component/UI/Spinner/Spinner";
 import "../../component/CategoryList/categoryList.scss";
-import { useDebounce } from "../../hook/useDebounce";
+import { useDebounce } from "../../core/hook/useDebounce";
 import { img } from "../../assets/img/indexImg";
-
+import { useLocation } from "react-router-dom";
+import { category } from "../../core/api/categories";
 const Main = ({ showModal, searchAd,setSearchAd }: any) => {
   const [showFaq, setShowFaq] = useState(0);
   const [curentCategoryId, setCurentCategory] = useState(0);
   const [allData, setAllData] = useState(true);
-  
+  const [curentPage,setCurrentPage] = useState(0)
+  const [categoryList,setCategoryList] = useState([
+    {categoryId:0,name:'Все',fields:[]}
+  ])
   const faqHandler = (index: number) => {
     setShowFaq(index);
   };
-
+  
   const {
     data: allAdd,
     isSuccess: isSuccessAlladd,
     isLoading: allAddLoading,
-  } = adApi.useFetchAllAdsQuery();
+  } = adApi.useFetchAllAdsQuery(curentPage);
+
+  const [getCategoryById] = category.useLazyGetCategoryByIdQuery()
+  useEffect(() => {
+    getCategoryById('').then(res=>{
+      if(res?.data){
+        setCategoryList([...categoryList, ...res?.data])
+      }
+    })
+  }, [])
   
   const {
     data: categoryByIdData = [],
     isSuccess: isSuccessCategoryAds,
     isLoading: categoryByIdLoading,
-  } = adApi.useFetchByCategoryIdAdsQuery(curentCategoryId);
-
-  
-  useEffect(() => {}, [categoryByIdData]);
+  } = adApi.useFetchByCategoryIdAdsQuery(curentCategoryId,{skip:curentCategoryId===0});
 
   const curentCategory = (idCutegory: number) => {
     if (idCutegory !== 0) {
@@ -46,11 +55,7 @@ const Main = ({ showModal, searchAd,setSearchAd }: any) => {
     }
   };
   
-  const debouncedSearchTerm = useDebounce(searchAd, 500);
-  const {data:searchData,isLoading:searchDataLoading} = adApi.useSearchDataQuery(searchAd,{ skip: searchAd === "" })
-  console.log(searchData);
-  
- 
+  const {data:searchData,isLoading:searchDataLoading} = adApi.useSearchDataQuery(searchAd,{ skip: searchAd === ""  || searchAd === undefined })
 
   return (
     <div className="main wrapper">
@@ -65,7 +70,7 @@ const Main = ({ showModal, searchAd,setSearchAd }: any) => {
           searchData?.map((product: any) => (
             <ProductCard
               product={product}
-              key={product.id}
+              key={product.productId}
               showModal={showModal}
             />
           ))
@@ -87,8 +92,9 @@ const Main = ({ showModal, searchAd,setSearchAd }: any) => {
         <Slider />
         <div className="main__product">
           <div className="main__product__left">
+            
             <div className="category__list">
-              {categoryList.map((el, index) => (
+              {categoryList && categoryList.map((el, index) => (
                 <div
                   key={el.name}
                   className={
@@ -96,7 +102,7 @@ const Main = ({ showModal, searchAd,setSearchAd }: any) => {
                       ? "category__list__item active"
                       : "category__list__item"
                   }
-                  onClick={() => curentCategory(el?.id)}
+                  onClick={() => curentCategory(el?.categoryId)}
                 >
                   {el.name}
                 </div>
@@ -110,7 +116,7 @@ const Main = ({ showModal, searchAd,setSearchAd }: any) => {
               categoryByIdData?.map((product: any) => (
                 <ProductCard
                   product={product}
-                  key={product.id}
+                  key={product.productId}
                   showModal={showModal}
                 />
               ))
@@ -121,7 +127,7 @@ const Main = ({ showModal, searchAd,setSearchAd }: any) => {
                 allAdd.map((product: any) => (
                 <ProductCard
                   product={product}
-                  key={product.id}
+                  key={product.productId}
                   showModal={showModal}
                 />
               ))

@@ -1,4 +1,4 @@
-import Input from '../Input/Input';
+import Input from '../UI/Input/Input';
 import './searchBlock.scss'
 import { img } from '../../assets/img/indexImg';
 

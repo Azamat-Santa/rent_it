@@ -1,11 +1,11 @@
 
 import "./recomendationSlider.scss";
 import Slider from "react-slick";
-import { dataMainPage } from "../../data/data";
-import ProductCard from "../ProductCard/ProductCard";
-import { adApi } from "../../api/ad";
+import { dataViewPage } from "../../consts/dataMock";
+import ProductCard from "../Card/ProductCard/ProductCard";
 
 const RecomendationSlider = () => {
+  
   const settings = {
     dots: false,
     infinite: true,
@@ -45,7 +45,7 @@ const RecomendationSlider = () => {
   return (
     <div className="carousel-wrapper">
       <Slider {...settings}>
-        {dataMainPage &&  dataMainPage.map((product: any) => (
+        {dataViewPage &&  dataViewPage.map((product: any) => (
           <ProductCard product={product} key={product.id} />
         ))
       }
