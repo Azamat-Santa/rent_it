@@ -1,5 +1,12 @@
 import { img } from '../assets/img/indexImg'
 
+export interface IDataMainPage {
+    id: number;
+    favorite: boolean;
+    mainImageUrl: any;
+    title: string;
+    price: string;
+}
 export const dataViewPage = [
     {
         id:1,

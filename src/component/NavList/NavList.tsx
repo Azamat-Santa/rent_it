@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import "./navList.scss";
 import { useSelector } from 'react-redux';
 import { handlerNavlist } from "../../core/helpers/handleNavlist"
 
-const NavList = ({showModal}:any) => {
+interface NavListProps {
+  showModal:()=>void
+}
+
+
+const NavList :FC<NavListProps> = ({showModal}) => {
   const isAuth = useSelector((state:any)=>state.user.isAuth)
   const user = useSelector((state: any) => state.user.user);
 
@@ -19,7 +24,7 @@ const NavList = ({showModal}:any) => {
       {currentNavlist.map((el, idx) => (
         <NavLink
           to={!isAuth && el.path === '/favorite/0' ? '/' : el.path}
-          className={({isActive})=> `nav-list-item ${isActive && 'active'}`}
+          className={({isActive})=> `nav-list-item ${isActive ? 'active' : ''}`}
           key={el.path}
           onClick={() => handlerCurrentPage(el.text,idx)}
           >

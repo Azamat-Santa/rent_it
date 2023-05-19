@@ -5,7 +5,7 @@ import { ICategory } from "../types/ICategory";
 
 export interface ICategoryPost {
   categoryName: string;
-  addFields: [];
+  addFields: string[];
 }
 
 export const category = createApi({
@@ -28,7 +28,7 @@ export const category = createApi({
       }),
       providesTags: (result) => ["category"],
     }),
-    addNewCategory: builder.mutation<string, ICategoryPost>({
+    addNewCategory: builder.mutation<string , ICategoryPost>({
       query: (body) => ({
         url: "create",
         method: "POST",

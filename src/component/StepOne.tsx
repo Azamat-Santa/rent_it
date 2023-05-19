@@ -1,73 +1,12 @@
-import React from 'react';
 import Title from './UI/Title/Title';
 import { DatePicker } from 'antd';
-import moment from 'moment';
 import Input from './UI/Input/Input';
 
 const StepOne = ({formikStepOne}:any) => {
+
     return (
         <form onSubmit={formikStepOne.handleSubmit}>
         <div className="full-register__pasport__image">
-            {/* {filePasportWidthMe ? (
-              <>
-                <img
-                  src={filePasportWidthMe}
-                  alt=""
-                  className="full-register__pasport__image__avatar"
-                  onClick={() => {
-                    imageFilePasportWidthMe.current.click();
-                  }}
-                />
-                <input
-                  type="file"
-                  ref={imageFilePasportWidthMe}
-                  name="passportWithMe"
-                  id="passportWithMe"
-                  onChange={(e) => {
-                    formikStepThree.setFieldValue(
-                      "passportWithMe",
-                      e.target.files[0]
-                    );
-                    setPasportWidthMe(URL.createObjectURL(e.target.files[0]));
-                  }}
-                />
-                {formikStepThree.errors.passportWithMe &&
-                  formikStepThree.touched.passportWithMe && (
-                    <div className="input__error file">
-                      {formikStepThree.errors.passportWithMe}
-                    </div>
-                  )}
-              </>
-            ) : (
-              <div
-                className="full-register__pasport__image__card block-input"
-                onClick={() => {
-                  imageFilePasportWidthMe.current.click();
-                  console.log(filePasportOne);
-                }}
-              >
-                <input
-                  type="file"
-                  ref={imageFilePasportWidthMe}
-                  name="passportWithMe"
-                  id="passportWithMe"
-                  onChange={(e) => {
-                    formikStepThree.setFieldValue(
-                      "passportWithMe",
-                      e.target.files[0]
-                    );
-                    setPasportWidthMe(URL.createObjectURL(e.target.files[0]));
-                  }}
-                />
-                <img src={imageIcon} alt="" />
-                {formikStepThree.errors.passportWithMe &&
-                  formikStepThree.touched.passportWithMe && (
-                    <div className="input__error file">
-                      {formikStepThree.errors.passportWithMe}
-                    </div>
-                  )}
-              </div>
-            )} */}
           </div>
           <div className="block-input">
             <Input

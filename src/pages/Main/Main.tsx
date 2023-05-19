@@ -7,8 +7,7 @@ import SearchBlock from "../../component/SearchBlock/SearchBlock";
 import { faqData } from "../../consts/faqData";
 import { adApi } from "../../core/api/ad";
 import Spinner from "../../component/UI/Spinner/Spinner";
-import "../../component/CategoryList/categoryList.scss";
-import { useDebounce } from "../../core/hook/useDebounce";
+
 import { img } from "../../assets/img/indexImg";
 import { useLocation } from "react-router-dom";
 import { category } from "../../core/api/categories";
@@ -54,6 +53,8 @@ const Main = ({ showModal, searchAd,setSearchAd }: any) => {
       setAllData(true);
     }
   };
+
+ 
   
   const {data:searchData,isLoading:searchDataLoading} = adApi.useSearchDataQuery(searchAd,{ skip: searchAd === ""  || searchAd === undefined })
 

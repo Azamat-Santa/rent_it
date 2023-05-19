@@ -9,6 +9,7 @@ import SettingsComponent from "./SettingsComponent/SettingsComponent";
 import TabContent from "./TabContent/TabContent";
 import ProductEdit from './ProductEdit/ProductEdit';
 import { navlistFavorite } from "../../consts/navlistFavorite";
+import  classNames  from 'classnames';
 const Favorites = () => {
    const {tabId} = useParams()
    const [activeTab, setActiveTab] = useState(Number(tabId));
@@ -42,11 +43,7 @@ const Favorites = () => {
           <div
           onClick={openTab}
           data-index={idx}
-            className={
-              activeTab === idx
-                ? "favorite-page__right__item active"
-                : "favorite-page__right__item"
-            }
+            className={classNames('favorite-page__right__item',{'active': activeTab === idx })}
             key={el.text}
           >
             {el.text}

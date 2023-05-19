@@ -1,5 +1,5 @@
 export interface IMessagePost {
   chatId: number;
-  senderId: number;
+  senderId: string | undefined;
   content: string;
 }

@@ -245,7 +245,6 @@ const navigate = useNavigate()
           </div>
         )}
         <div className="new-product__date">
-        
          <div className="block-input">
          <DatePicker 
             name="bookDateFrom"

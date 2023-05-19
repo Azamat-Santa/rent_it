@@ -27,6 +27,10 @@ import exImg1 from './exImg1.png'
 import exImg2 from './exImg2.png'
 import exImg3 from './exImg3.png'
 import exImg4 from './exImg4.png'
+import step1 from './fullRegStep1.png'
+import step2 from './fullRegStep2.png'
+import step3 from './fullRegStep3.png'
+
 
 
 export const img = {
@@ -60,5 +64,9 @@ export const img = {
     exImg2,
     exImg3,
     exImg4,
-
+    step1,
+    step2,
+    step3,
+    noAvatar : "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png",
+    noAd:"https://brilliant24.ru/files/cat/template_01.png"
 }

@@ -1,10 +1,11 @@
-import { FC ,useState} from "react";
+import { FC } from "react";
 import { img } from "../../../assets/img/indexImg";
 import "./productCard.scss";
 import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { adApi, IAd } from "../../../core/api/ad";
+import { adApi} from "../../../core/api/ad";
 import { message } from "antd";
+import { IAd } from "../../../core/types/IAd";
 interface IProductCard {
   product: IAd ;
   showModal?: () => void ;

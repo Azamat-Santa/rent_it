@@ -11,18 +11,16 @@ const uiSlice = createSlice({
   name: 'ad',
   initialState: { backgound : ''} as AdState,
   reducers: {
-   changeBackgroundOnBlue:(state,{payload})=>{
+   changeBackground:(state,{payload})=>{
        state.backgound = payload
    },
-   changeBackgroundOnWhite:(state,{payload})=>{
-    state.backgound = payload
-},
+   
   },
 
 })
 
 export default uiSlice.reducer
 
-export const {changeBackgroundOnBlue,changeBackgroundOnWhite} = uiSlice.actions
+export const {changeBackground} = uiSlice.actions
 
 // export const selectCurrentUser = (state: RootState) => state.user.user

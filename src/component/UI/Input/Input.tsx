@@ -1,13 +1,10 @@
-import { DetailedHTMLProps, InputHTMLAttributes } from 'react'
 import './input.scss'
-
-
 interface IInputProps {
     id?:string;
     name?:string;
     type?:string;
     typeClass:string ;
-    placeholder?:string;
+    placeholder:string;
     value?:string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
     onBlur?:(e:React.FocusEvent<HTMLInputElement>)=>void
@@ -23,7 +20,6 @@ interface IInputTypes {
 
 
 export default function Input({typeClass,placeholder,value,onChange,onBlur,id,name,type}:IInputProps){
-    
     const inputTypes : IInputTypes = {
         searchMainInput:'search-main-input',
         searchFooterInput:'search-footer-input',

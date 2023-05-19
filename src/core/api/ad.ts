@@ -1,16 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { IAd } from "../types/IAd";
 import { IAdDatails } from "../types/IAdDatails";
-export interface IAd {
-  productId: number;
-  title: string;
-  price: number;
-  rating: string;
-  reviewNumber: number;
-  clickNumber: number;
-  mainImageUrl: string;
-  active: boolean;
-  favorite: boolean;
-}
+
 
 export interface IAdRequestDatails {
   productId: number;
@@ -69,7 +60,7 @@ export const adApi = createApi({
       }),
       providesTags: (result) => ["Ad"],
     }),
-    fetchMapId: builder.query<any, string | undefined>({
+    fetchMapId: builder.query<any, number>({
       query: (categoryId) => ({
         url: `get/map-products-by-category/${categoryId}`,
       }),

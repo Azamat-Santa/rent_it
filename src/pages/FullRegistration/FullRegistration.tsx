@@ -5,9 +5,6 @@ import { Checkbox, DatePicker, message } from "antd";
 import { useFormik } from "formik";
 import { authUser } from "../../core/api/userAuth";
 import jwt_decode from "jwt-decode";
-import stepIcon1 from "../../assets/img/fullRegStep1.png";
-import stepIcon2 from "../../assets/img/fullRegStep2.png";
-import stepIcon3 from "../../assets/img/fullRegStep3.png";
 import { useNavigate } from "react-router-dom";
 import {
   ValidationSchemaStepOne,
@@ -19,10 +16,15 @@ import StepOne from "../../component/StepOne";
 import StepTwo from "../../component/StepTwo";
 import StepThree from "../../component/StepThree";
 import { routeEndpoints } from "../../consts/routeEndpoints";
+import { img } from "../../assets/img/indexImg";
+import { SwitchChangeEventHandler } from "antd/es/switch";
+import { CheckboxChangeEvent } from "antd/es/checkbox";
+import { IUserComplete } from "../../core/types/IUserComplete";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 
 const FullRegistration = () => {
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState({});
   const [filePasportOne, setFilePasportOne] = useState();
   const [filePasportTwo, setFilePasportTwo] = useState();
   const [filePasportWidthMe, setPasportWidthMe] = useState();
@@ -32,7 +34,7 @@ const FullRegistration = () => {
   const imageFilePasportWidthMe = useRef(null);
   const [fullRegister, { isLoading: isLoadingRegisterFull }] =
     authUser.useFullRegisterMutation();
-  const userId = jwt_decode(localStorage.getItem("accessTocken")).user_id;
+  const userId = 23
   const history = useNavigate();
 
   const formikStepOne = useFormik({
@@ -114,12 +116,11 @@ const FullRegistration = () => {
         new Blob([JSON.stringify(data)], { type: "application/json" })
       );
       console.log(formData, "formdata");
-      fullRegister(formDataFile).then((data) => {
-        console.log(data);
-        if (data?.error) {
-          message.error(data?.error?.data?.errors[0], 3);
+      fullRegister(formDataFile).unwrap().then((res:any) => {
+        if (res?.error) {
+          message.error(res?.error?.data?.errors[0], 3);
         }
-        if (data?.data) {
+        if (res?.data) {
           message.success("Вы успешно прошли полную регистрацию!!!", 3);
           history(routeEndpoints.productDatail);
         }
@@ -127,54 +128,47 @@ const FullRegistration = () => {
     },
   });
 
-  const nextStep = () => {
-    setStep(step + 1);
-  };
-  const prevStep = () => {
-    setStep(step - 1);
-  };
-
+  const nextStep = () => setStep(step + 1);
+  const prevStep = () => setStep(step - 1);
+  
   const toggleChecked = () => {
     setChecked(!checked);
-    !checked
-      ? formikStepTwoResidenceAddress.setFieldValue(
-          "region",
-          formikStepTwo.values.region
-        )
-      : formikStepTwoResidenceAddress.setFieldValue("region", "");
-    !checked
-      ? formikStepTwoResidenceAddress.setFieldValue(
-          "cityOrVillage",
-          formikStepTwo.values.cityOrVillage
-        )
-      : formikStepTwoResidenceAddress.setFieldValue("cityOrVillage", "");
-    !checked
-      ? formikStepTwoResidenceAddress.setFieldValue(
-          "district",
-          formikStepTwo.values.district
-        )
-      : formikStepTwoResidenceAddress.setFieldValue("district", "");
-    !checked
-      ? formikStepTwoResidenceAddress.setFieldValue(
-          "street",
-          formikStepTwo.values.street
-        )
-      : formikStepTwoResidenceAddress.setFieldValue("street", "");
-    !checked
-      ? formikStepTwoResidenceAddress.setFieldValue(
-          "houseNumber",
-          formikStepTwo.values.houseNumber
-        )
-      : formikStepTwoResidenceAddress.setFieldValue("houseNumber", "");
-    !checked
-      ? formikStepTwoResidenceAddress.setFieldValue(
-          "apartmentNumber",
-          formikStepTwo.values.apartmentNumber
-        )
-      : formikStepTwoResidenceAddress.setFieldValue("apartmentNumber", "");
+    if(!checked){
+      formikStepTwoResidenceAddress.setFieldValue(
+        "region",
+        formikStepTwo.values.region
+      )
+      formikStepTwoResidenceAddress.setFieldValue(
+        "cityOrVillage",
+        formikStepTwo.values.cityOrVillage
+      )
+      formikStepTwoResidenceAddress.setFieldValue(
+        "district",
+        formikStepTwo.values.district
+      )
+      formikStepTwoResidenceAddress.setFieldValue(
+        "street",
+        formikStepTwo.values.street
+      )
+      formikStepTwoResidenceAddress.setFieldValue(
+        "houseNumber",
+        formikStepTwo.values.houseNumber
+      )
+      formikStepTwoResidenceAddress.setFieldValue(
+        "apartmentNumber",
+        formikStepTwo.values.apartmentNumber
+      )
+    }else{
+      formikStepTwoResidenceAddress.setFieldValue("region", "");
+      formikStepTwoResidenceAddress.setFieldValue("cityOrVillage", "");
+      formikStepTwoResidenceAddress.setFieldValue("district", "");
+      formikStepTwoResidenceAddress.setFieldValue("street", "");
+      formikStepTwoResidenceAddress.setFieldValue("houseNumber", "");
+      formikStepTwoResidenceAddress.setFieldValue("apartmentNumber", "");
+    }
   };
-  const onChange = (e) => {
-    console.log("checked = ", e.target.checked);
+
+  const onChange = (e:CheckboxChangeEvent) => {
     setChecked(e.target.checked);
   };
 
@@ -188,11 +182,16 @@ const FullRegistration = () => {
             опубликовать объявление о сдаче товара
           </div>
           <img
-            src={step === 1 ? stepIcon1 : step === 2 ? stepIcon2 : stepIcon3}
+            src={step === 1 ? img.step1 : step === 2 ? img.step2 : img.step3}
             alt=""
           />
         </div>
-        {step === 1 && <StepOne formikStepOne={formikStepOne} />}
+
+        {step === 1 && 
+          <StepOne 
+            formikStepOne={formikStepOne} 
+          />
+        }
         {step === 2 && (
           <StepTwo
             formikStepTwoResidenceAddress={formikStepTwoResidenceAddress}

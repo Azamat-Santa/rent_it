@@ -8,8 +8,7 @@ import { useAppDispatch } from "./store";
 import { useSelector } from "react-redux";
 import AuthModal from "./component/Modal/AuthModal/AuthModal";
 import {
-  changeBackgroundOnBlue,
-  changeBackgroundOnWhite,
+  changeBackground,
 } from "./store/reducers/ui";
 import { authUser } from "./core/api/userAuth";
 import RoutesMain from "./component/Routes/Routes";
@@ -18,6 +17,7 @@ import { routeEndpoints } from "./consts/routeEndpoints";
 const App = () => {
   const [searchAd, setSearchAd] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const dispatch = useAppDispatch();
   const location = useLocation();
   const [refreshTocken, { data }] = authUser.useRefreshTockenMutation();
@@ -35,9 +35,9 @@ const App = () => {
       location.pathname === routeEndpoints.fullRegistration ||
       location.pathname === routeEndpoints.techSupport
     ) {
-      dispatch(changeBackgroundOnBlue("rgba(237, 247, 251, 1)"));
+      dispatch(changeBackground("rgba(237, 247, 251, 1)"));
     } else {
-      dispatch(changeBackgroundOnWhite("white"));
+      dispatch(changeBackground("white"));
     }
   }, [location.pathname]);
 
@@ -50,16 +50,7 @@ const App = () => {
   };
 
   const backgound = useSelector((state: any) => state.uiSlice.backgound);
- useEffect(() => {
-   fetch(`${process.env.REACT_APP_BASE_URL}/get/category-fields`)
-   .then(res=>{
-    console.log('res1',res);
-    return res.json()
-   }).then(res=>{
-    console.log('res',res);
-    
-   })
- }, [])
+
  
 
   return (

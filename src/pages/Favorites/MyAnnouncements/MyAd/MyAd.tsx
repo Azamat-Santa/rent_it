@@ -81,8 +81,8 @@ const MyAd = ({ openEditProduct }: any) => {
         </NavLink>
       </div>
       {data ? (
-        data.map((product: any, index: number) => (
-          <AnnouncementsCard product={product} index={index} showModal={showModal} openEditProduct={openEditProduct}/>
+        data.map((product: any) => (
+          <AnnouncementsCard product={product} showModal={showModal} openEditProduct={openEditProduct}/>
         ))
       ) : (
         <Spinner color={"blue"} />

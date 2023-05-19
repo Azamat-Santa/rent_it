@@ -13,10 +13,11 @@ import {
 } from "chart.js";
 import { Pie, Line } from "react-chartjs-2";
 import "./statistick.scss";
-import { statistickApi } from "../../../core/api/statistick";
-import { useState,useEffect } from "react";
-import Title from "../../../component/UI/Title/Title";
+import { statistickApi } from "../../core/api/statistick";
+import { useState,useEffect,FC } from "react";
+import Title from "../UI/Title/Title";
 import { DatePicker } from "antd";
+import { ICategory } from "../../core/types/ICategory";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 ChartJS.register(
@@ -30,26 +31,26 @@ ChartJS.register(
   Legend
 );
 
-
 const labels = [
-  "Январь",
-  "Февраль",
-  "Март",
-  "Апрель",
-  "Май",
-  "Июнь",
-  "Июль",
-  "Август",
-  "Сентябрь",
-  "Октябрь",
-  "Ноябрь",
-  "Декабрь",
+  { name: "Январь", number: 0 },
+  { name: "Февраль", number: 0 },
+  { name: "Март", number: 0 },
+  { name: "Апрель", number: 0 },
+  { name: "Май", number: 0 },
+  { name: "Июнь", number: 0 },
+  { name: "Июль", number: 0 },
+  { name: "Август", number: 0 },
+  { name: "Сентябрь", number: 0 },
+  { name: "Октябрь", number: 0 },
+  { name: "Ноябрь", number: 0 },
+  { name: "Декабрь", number: 0 },
 ];
 
-const Statistick = () => {
-  const [filterCategoryName, setFilterCategoryName] = useState();
-  const [filterNumber, setfilterNumber] = useState();
-  const [views, setViews] = useState();
+
+const Statistick : FC = () => {
+  const [filterCategoryName, setFilterCategoryName] = useState<string[]>([]);
+  const [filterNumber, setfilterNumber] = useState<number[]>([]);
+  const [views, setViews] = useState<number[]>([]);
   const [year,setYear]=useState(2022)
 
   const [getCategoryBySumm, { data: stat }] =
@@ -59,43 +60,26 @@ const Statistick = () => {
   
 
   useEffect(() => {
-    getCategoryBySumm("").then((data: any) => {
-      const result: any = [];
-      const result2: any = [];
-
-      data.data.map((d: any) => {
-        result.push(d.categoryName);
-        result2.push(d.number);
+    getCategoryBySumm("").then((res) => {
+      const categoryName : string[]= [];
+      const categoryNumber : number[]= [];
+      res.data.forEach((d:ICategory) => {
+        categoryName.push(d.name);
+        categoryNumber.push(d.categoryId);
       });
-
-      setFilterCategoryName(result);
-      setfilterNumber(result2);
+      setFilterCategoryName(categoryName);
+      setfilterNumber(categoryNumber);
     });
 
    
   }, []);
   useEffect(() => {
-    getViews(year).then((data: any) => {
-      let result: any = [];
-      const labels = [
-        { name: "Январь", number: 0 },
-        { name: "Февраль", number: 0 },
-        { name: "Март", number: 0 },
-        { name: "Апрель", number: 0 },
-        { name: "Май", number: 0 },
-        { name: "Июнь", number: 0 },
-        { name: "Июль", number: 0 },
-        { name: "Август", number: 0 },
-        { name: "Сентябрь", number: 0 },
-        { name: "Октябрь", number: 0 },
-        { name: "Ноябрь", number: 0 },
-        { name: "Декабрь", number: 0 },
-      ];
-
-      labels.map((el) => {
-        return Object.keys(data.data).map((key: any) => {
+    getViews(year).then((res) => {
+      let result: number[] = [];
+      labels.forEach((el) => {
+         Object.keys(res.data).forEach((key: string) => {
           if (key === el.name) {
-            result.push(data.data[key]);
+            result.push(res.data[key]);
           }
         });
       });
@@ -151,7 +135,7 @@ const Statistick = () => {
     ],
   };
   const dataView = {
-    labels,
+    labels : labels.map(el=> el.name ),
     datasets: [
       {
         fill: true,

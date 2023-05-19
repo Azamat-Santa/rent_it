@@ -1,14 +1,22 @@
 import { EditOutlined } from '@ant-design/icons';
 import { Switch } from 'antd';
+import { FC } from 'react';
+import { img } from '../../assets/img/indexImg';
 
-const AnnouncementsCard = ({product,index,showModal,openEditProduct}:any) => {
+interface AnnouncementsCardProps {
+  product:any;
+  showModal:(productId : number ,active : boolean) => void;
+  openEditProduct:()=>void
+}
+
+const AnnouncementsCard : FC<AnnouncementsCardProps> = ({product,showModal,openEditProduct}) => {
     return (
         <div className="announcements__card" key={product.id}>
             <div className="announcements__card__left">
               <img
                 src={
                   product.mainImageUrl === null
-                    ? "https://brilliant24.ru/files/cat/template_01.png"
+                    ? img.noAd
                     : product.mainImageUrl
                 }
                 alt=""

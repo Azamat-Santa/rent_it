@@ -1,16 +1,16 @@
 import ProductCard from "../../../component/Card/ProductCard/ProductCard";
 import { useState } from "react";
 import { adApi } from "../../../core/api/ad";
-import { bookingApi } from '../../../core/api/booking';
+import { bookingApi } from "../../../core/api/booking";
 
 const Favorite = () => {
   const [isFavorite, setIsFavorite] = useState({
     isFavorite: true,
     isRented: false,
   });
-  
-const {data:dataGetFavorites} = adApi.useGetMyFavoritesQuery('')
-const {data:myBookings} = bookingApi.useGetMyBoookingQuery('')
+
+  const { data: dataGetFavorites } = adApi.useGetMyFavoritesQuery("");
+  const { data: myBookings } = bookingApi.useGetMyBoookingQuery("");
 
   const handleFavorite = (text: string) => {
     if (text === "fav") {
@@ -28,44 +28,49 @@ const {data:myBookings} = bookingApi.useGetMyBoookingQuery('')
 
   return (
     <div>
-        <div className="favorite-page__left__navigate">
-          <div
-            onClick={() => handleFavorite("fav")}
-            className={
-              isFavorite.isFavorite
-                ? "favorite-page__left__navigate__item active"
-                : "favorite-page__left__navigate__item"
-            }
-          >
-            Избранные
-          </div>
-          <div
-            onClick={() => handleFavorite("ren")}
-            className={
-              isFavorite.isRented
-                ? "favorite-page__left__navigate__item active"
-                : "favorite-page__left__navigate__item"
-            }
-          >
-            Арендованные
-          </div>
+      <div className="favorite-page__left__navigate">
+        <div
+          onClick={() => handleFavorite("fav")}
+          className={
+            isFavorite.isFavorite
+              ? "favorite-page__left__navigate__item active"
+              : "favorite-page__left__navigate__item"
+          }
+        >
+          Избранные
         </div>
-        {isFavorite.isFavorite && (
-          <div className="favorite-page__left__favorite">
-            {dataGetFavorites  && dataGetFavorites !== undefined && dataGetFavorites.length !== 0 ?  dataGetFavorites.map((product:any) => (
-              <ProductCard product={product} key={product.id}/>
-            )):<div>Нет избранных</div>}
-          </div>
-        )}
-        {isFavorite.isRented && (
-          <div className="favorite-page__left__favorite">
-            {myBookings && myBookings.map((product:any) => (
-              <ProductCard product={product} key={product.id}/>
-            ))}
-          </div>
-        )}
+        <div
+          onClick={() => handleFavorite("ren")}
+          className={
+            isFavorite.isRented
+              ? "favorite-page__left__navigate__item active"
+              : "favorite-page__left__navigate__item"
+          }
+        >
+          Арендованные
+        </div>
       </div>
-    
+      {isFavorite.isFavorite && (
+        <div className="favorite-page__left__favorite">
+          {dataGetFavorites &&
+          dataGetFavorites.length !== 0 ? (
+            dataGetFavorites.map((product: any) => (
+              <ProductCard product={product} key={product.id} />
+            ))
+          ) : (
+            <div>Нет избранных</div>
+          )}
+        </div>
+      )}
+      {isFavorite.isRented && (
+        <div className="favorite-page__left__favorite">
+          {myBookings &&
+            myBookings.map((product: any) => (
+              <ProductCard product={product} key={product.id} />
+            ))}
+        </div>
+      )}
+    </div>
   );
 };
 

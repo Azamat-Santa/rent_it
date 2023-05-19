@@ -1,6 +1,11 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 
-const ProductImgsCarousel = ({slideData}:any) => {
+
+interface ProductImgsCarouselpRrops {
+  slideData : any
+}
+
+const ProductImgsCarousel: FC<ProductImgsCarouselpRrops> = ({slideData}) => {
   const [slideActive, setSlideActive] = useState(0);
 
     const nextSlide=() => {

@@ -2,6 +2,6 @@ import { IChatUserDto } from "./IChatUserDto";
 
 export interface IChat {
     id: number;
-    chatUsers: IChatUserDto;
+    chatUsers: IChatUserDto[];
     dateCreated: string;
 }

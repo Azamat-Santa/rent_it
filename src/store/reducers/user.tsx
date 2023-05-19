@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { authUser } from '../../core/api/userAuth'
 import { IUserInComplete } from '../../core/types/IUserInComplete'
-import type { RootState } from '../index'
+
 
 type AuthState = {
   isAuth: boolean | null
@@ -10,7 +10,7 @@ type AuthState = {
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState: { isAuth: true, user: {} } as AuthState,
+  initialState: { isAuth: true, user: {role:"ADMIN"} } as AuthState,
   reducers: {
     checkIsAuth:(state,action)=>{
       state.isAuth = true
@@ -20,7 +20,6 @@ const authSlice = createSlice({
       state.user = {} 
       localStorage.removeItem('accessTocken')
       localStorage.removeItem('refreshTocken')
-
     }
   },
 
@@ -53,4 +52,3 @@ export default authSlice.reducer
 
 export const {checkIsAuth,logOut} = authSlice.actions
 
-// export const selectCurrentUser = (state: RootState) => state.user.user

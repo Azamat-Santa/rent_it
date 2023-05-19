@@ -1,14 +1,17 @@
 import NavList from "../NavList/NavList";
 import "./header.scss";
 import accountImg from '../../assets/img/accImg.png'
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { logOut } from "../../store/reducers/user";
 import { message } from 'antd';
 import { useNavigate } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { FC } from 'react';
 
+interface HeaderProps {
+  showModal:()=>void
+}
 
-const Header = ({showModal}:any) => {
+const Header : FC<HeaderProps> = ({showModal}) => {
   const dispatch = useDispatch()
    const navigate = useNavigate()
    const isAuth = useSelector((state:any)=>state.user.isAuth)

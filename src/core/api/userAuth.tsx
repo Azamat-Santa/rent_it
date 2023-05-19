@@ -63,7 +63,7 @@ export const authUser = createApi({
       }),
     }),
 
-    fullRegister: builder.mutation<IUserComplete, IUserInCompleteResponse>({
+    fullRegister: builder.mutation<IUserComplete, FormData>({
       query: (data) => ({
         url: 'api/v1/users/sign-up-complete',
         method: 'PUT',

@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
-import TechSupportMain from "../../TechnicalSupport/pages/TechSupportMain/TechSupportMain";
-import TechSupportUserDatail from "../../TechnicalSupport/pages/TeschSupportUserDateail/TechSupportUserDatail";
+import TechSupportMain from "../../pages/TechSupportMain/TechSupportMain";
+import TechSupportUserDatail from "../../pages/TeschSupportUserDateail/TechSupportUserDatail";
 import OwnerProfile from "../../pages/OwnerProfile/OwnerProfile";
 import Main from "../../pages/Main/Main";
 import Product from "../../pages/Product/Product";
@@ -9,7 +9,7 @@ import Profile from "../../pages/Profile/Profile";
 import NewProduct from "../../pages/NewProduct/NewProduct.";
 import FullRegistration from "../../pages/FullRegistration/FullRegistration";
 import Favorites from "../../pages/Favorites/Favorites";
-import AdminMain from "../../admin/pages/Main/AdminMain";
+import AdminMain from "../../pages/MainAdmin/AdminMain";
 import { routeEndpoints } from "../../consts/routeEndpoints";
 
 const RoutesMain = ({showModal,searchAd,setSearchAd}:any) => {
@@ -20,10 +20,11 @@ const RoutesMain = ({showModal,searchAd,setSearchAd}:any) => {
     }
     return children;
   };
+
   return (
     <Routes>
       <Route
-        path={routeEndpoints.main}
+         path={routeEndpoints.main}
         element={
           <Main
             showModal={showModal}

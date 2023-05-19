@@ -1,15 +1,16 @@
-import { category } from "../../../core/api/categories";
-import Title from "../../../component/UI/Title/Title";
-import "./category.scss";
-import Spinner from "../../../component/UI/Spinner/Spinner";
-import { useState } from 'react';
-import { img } from "../../../assets/img/indexImg";
+import { useState, FC } from 'react';
 
-const Category = () => {
+import { category } from "../../core/api/categories";
+import Title from "../UI/Title/Title";
+import "./category.scss";
+import { img } from "../../assets/img/indexImg";
+import Spinner from "../UI/Spinner/Spinner";
+import { ICategory } from '../../core/types/ICategory';
+
+const Category : FC = () => {
   const [currentCategoryLoading,setCurrentCategoryLoading] = useState(0)
   const { data } = category.useGetCategoryByIdQuery("");
-  const [deleteCategory,{data:deleteCategoryData,isLoading:deleteIsloading}] = category.useDeleteCategoryMutation()
-  console.log(data, "category");
+  const [deleteCategory,{isLoading:deleteIsloading}] = category.useDeleteCategoryMutation()
 
   return (
     <div className="category">
@@ -18,14 +19,13 @@ const Category = () => {
         <div></div>
       </div>
       {data ?
-        data.map((category: any) => (
+        data.map((category: ICategory) => (
           <div className="category__item">
             <div className="category__item__left">{category.name}</div>
             <div className="category__item__right">
                 <img src={img.editIcon} alt="" />
-                {deleteIsloading && currentCategoryLoading === category.categoryId? 
+                {deleteIsloading && currentCategoryLoading === category.categoryId ? 
                 <Spinner color={'blue'}/>:
-                
                 <img
                   src={img.deleteImg}
                   alt=""
@@ -38,7 +38,7 @@ const Category = () => {
                 
             </div>
           </div>
-        )):<Spinner color={'blue'} />
+        )) : <Spinner color={'blue'} />
     }
     </div>
   );

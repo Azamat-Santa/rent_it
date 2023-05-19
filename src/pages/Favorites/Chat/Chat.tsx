@@ -1,105 +1,68 @@
 import "./chat.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent, LegacyRef } from "react";
 import Title from "../../../component/UI/Title/Title";
 import { useRef } from "react";
 import { chatApi } from "../../../core/api/chat";
 import jwt_decode from "jwt-decode";
 import Spinner from "../../../component/UI/Spinner/Spinner";
-import * as SockJS from "sockjs-client";
-import * as Stomp from "stompjs";
 import ChatForm from "../../../component/ChatForm";
+import { IChat } from "../../../core/types/IChat";
+import  classNames  from 'classnames';
+import { img } from "../../../assets/img/indexImg";
 
+interface IJwt {
+  user_id:string 
+}
 const Chat = () => {
-  const [activeChat, setActiveChat] = useState(0);
-  const [heightMsgsBlock, setHeightMsgsBlock] = useState(0);
+  const [activeChat, setActiveChat] = useState<number>(0);
+  const [heightMsgsBlock, setHeightMsgsBlock] = useState<number>(0);
   const [currentIdSend, setCurrentIdSend] = useState(0);
   const [currentChat, setCurrentChat] = useState({
     name: "",
     email: "",
   });
   const [sendMsgText, setSendMsgText] = useState("");
-    
-  const userId = jwt_decode(localStorage.getItem("accessTocken")).user_id;
+  const token = localStorage.getItem("accessTocken")
+  const decode = {user_id:'34'}
   const [getChatId, { data: conversations }] = chatApi.useLazyGetChatIdQuery();
   const { data: message } = chatApi.useGetMessageIdQuery(currentIdSend);
+  const scrollRef = useRef<null | HTMLDivElement>(null);
+  const heightBlock = useRef<null | HTMLDivElement>(null);
+  const heightFormMsg = useRef<HTMLDivElement| null >(null);
+  const dynamicWidth = "calc(100% - " + heightMsgsBlock + "px" + ")";
+  
+  const [sendMessage] = chatApi.useSendMessageMutation()
 
-  useEffect(() => {
-    getChatId(userId).then((data) => {
-      const { email, imageUser, firstName } = data?.data[0]?.chatUsers[0];
-      const { id } = data?.data[0];
-      console.log(id, "id");
-      setCurrentIdSend(id);
-      setActiveChat();
-      setCurrentChat({
-        name: firstName,
-        imageUser,
-        email,
-      });
-    });
-  }, []);
-  useEffect(() => {
-    setHeightMsgsBlock(
-      Number(heightBlock.current?.getBoundingClientRect().height) +
-        Number(heightFormMsg.current?.getBoundingClientRect().height) +
-        20
-    );
-  }, []);
-
-  const [sendMessage, { data: sendMsgData }] =
-    chatApi.useSendMessageMutation(currentIdSend);
-  let stompClient = useRef();
-
-  useEffect(() => {
-    let socket = new SockJS(`http://139.59.77.163:8080/ws`);
-    stompClient.current = Stomp.over(socket);
-    stompClient.current.connect({}, onConnected, () => {
-      console.log("disconnect");
-    });
-
-    function onConnected(data) {
-      // Subscribe to the Public Topic
-      stompClient.current.subscribe("/topic/public", onMessageReceived);
-      console.log(data, "data");
-    }
-    function onMessageReceived(pay) {
-      console.log(pay, "pay");
-    }
-  }, []);
-
-  const scrollRef = useRef();
+  // useEffect(() => {
+  //   getChatId(decode?.user_id).then((res) => {
+  //     const { email, firstName } = res?.data?[0].chatUsers[0] 
+  //     const { id } = res?.data?[0]?.id
+  //     setCurrentIdSend(id)
+  //     setCurrentChat({
+  //       name: firstName,
+  //       email
+  //     });
+  //   });
+  // }, []);
+  
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
 
-  function sendMessage2(chatMessageRequest) {
-    if (stompClient.current) {
-      stompClient.current.send(
-        "/app/chat-sendMessage",
-        {},
-        JSON.stringify(chatMessageRequest)
-      );
-    }
-    console.log(stompClient);
-  }
-
-  const heightBlock = useRef(null);
-  const heightFormMsg = useRef(null);
-  const dynamicWidth = "calc(100% - " + heightMsgsBlock + "px" + ")";
 
   const newMessage = ()=>{
     const option = {
         chatId: currentIdSend,
-        senderId: userId,
+        senderId: decode.user_id,
         content: sendMsgText,
       };
       sendMessage(option);
-      // sendMessage2(option)
       setSendMsgText("");
   }
-  const changeText = (e)=>{
+  const changeText = (e:ChangeEvent<HTMLInputElement>)=>{
     setSendMsgText(e.target.value)
-}
-const activeChatHandler =  (c,index) => {
+  }
+  const activeChatHandler =  (c:IChat,index:number) => {
     setActiveChat(index);
     setCurrentIdSend(c.id);
     setCurrentChat({
@@ -114,7 +77,7 @@ const activeChatHandler =  (c,index) => {
         {conversations ? (
           conversations !== undefined &&
           conversations.length !== 0 &&
-          conversations.map((c, index) => {
+          conversations.map((c, index:number) => {
             return conversations[index].chatUsers.map((person, idx) => (
               <div
                 className={
@@ -130,7 +93,7 @@ const activeChatHandler =  (c,index) => {
                     src={
                       person.imageUser !== " "
                         ? person.imageUser
-                        : "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/no-profile-picture-icon.png"
+                        : img.noAvatar
                     }
                     alt=""
                   />
@@ -141,7 +104,7 @@ const activeChatHandler =  (c,index) => {
             ));
           })
         ) : (
-          <Spinner />
+          <Spinner color={'blue'}/>
         )}
       </div>
       <Title text="" />
@@ -157,27 +120,19 @@ const activeChatHandler =  (c,index) => {
             message.length !== 0 &&
             message.map((msg) => (
               <div
-                className={
-                  msg.chatUserDto.id === userId
-                    ? "chat__right__msgs__wrapper"
-                    : "chat__right__msgs__wrapper me"
-                }
+                className={classNames("chat__right__msgs__wrapper" ,{'me':msg.chatUserDto.id === decode.user_id})}
                 key={msg.id}
                 ref={scrollRef}
               >
                 <div
-                  className={
-                    msg.chatUserDto.id === userId
-                      ? "chat__right__msgs__msg"
-                      : "chat__right__msgs__msg me"
-                  }
+                  className={classNames("chat__right__msgs__msg" , {'me':msg.chatUserDto.id === decode.user_id})}
                 >
                   {msg.content}
                 </div>
               </div>
             ))
           ) : (
-            <Spinner />
+            <Spinner color={'blue'} />
           )}
         </div>
         <ChatForm newMessage={newMessage} heightFormMsg={heightFormMsg} changeText={changeText} sendMsgText={sendMsgText}/>

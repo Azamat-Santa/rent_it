@@ -33,7 +33,7 @@ export const chatApi = createApi({
       },
       invalidatesTags: ["chatApi"],
     }),
-    sendMessage: builder.mutation<IMessage, IMessagePost>({
+    sendMessage: builder.mutation<IMessage[], IMessagePost >({
       query: (option) => {
         return {
           method: "POST",
@@ -43,7 +43,7 @@ export const chatApi = createApi({
       },
       invalidatesTags: ["chatApi"],
     }),
-    getChatId: builder.query<IChat, number>({
+    getChatId: builder.query<IChat[], string | undefined>({
       query: (chatId) => {
         return {
           url: `api/v1/chats/${chatId}`,
@@ -51,7 +51,7 @@ export const chatApi = createApi({
       },
       providesTags: (result) => ["chatApi"],
     }),
-    getMessageId: builder.query<IMessage, number>({
+    getMessageId: builder.query<IMessage[], number>({
       query: (chatId) => {
         return {
           url: `api/v1/chat-messages/${chatId}`,

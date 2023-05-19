@@ -49,7 +49,7 @@ export const bookingApi = createApi({
       },
       providesTags: (result) => ["bookingApi"],
     }),
-    getBoookingConfirm: builder.query<IUserBooking[], any>({
+    getBoookingConfirm: builder.query<IUserBookingRequest[], any>({
       query: () => {
         return {
           url: `get/requests`,

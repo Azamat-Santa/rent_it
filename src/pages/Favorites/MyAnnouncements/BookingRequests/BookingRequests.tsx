@@ -1,5 +1,5 @@
 
-import { bookingApi } from "../../../../core/api/booking";
+import { bookingApi, IUserBooking, IUserBookingRequest } from "../../../../core/api/booking";
 import "./bookingRequest.scss";
 import { message } from 'antd';
 import BookingConfirmCard from "../../../../component/Card/BookingConfirmCard";
@@ -19,8 +19,8 @@ const BookingRequests = () => {
   return (
     <div>
       {getBookingConfirm &&
-        getBookingConfirm.map((confirm: any) => (
-          <BookingConfirmCard confirm={confirm} booking={booking} isLoadingPutBookingConfirmAccept={isLoadingPutBookingConfirmAccept}/>
+        getBookingConfirm.map((confirm: IUserBookingRequest) => (
+          <BookingConfirmCard confirm={confirm} booking={booking} isLoading={isLoadingPutBookingConfirmAccept}/>
         ))}
     </div>
   );

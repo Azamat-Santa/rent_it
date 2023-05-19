@@ -41,29 +41,6 @@
         cursor: pointer;
         border-radius:30px;
 
-        // &::after{
-        //     content:'';
-        //     position: absolute;
-        //     width: 86px;
-        //     height: 89px;
-        //     background-image: url('../../assets/img/plus.png');
-        //     background-size: contain;
-        //     top: 50%;
-        //     left: 50%;
-        //     transform: translate(-50%, -50%);
-
-        // }
-        // &::before{
-        //     content:'Добавить';
-        //     position: absolute;
-           
-        //   bottom: -8%;
-        //  font-size: 20px;
-        //     left: 50%;
-        //     color: rgba(3, 71, 170, 1);
-        //     transform: translate(-50%, -50%);
-
-        // }
     }
 }
 .new-product__category__wrapper{
@@ -86,12 +63,10 @@
     background: white;
     width: 100%;
     padding: 10px;
-    // position: absolute;
     border-bottom:1px solid rgba(3, 71, 170, 1);
     border-left:1px solid rgba(3, 71, 170, 1);
     border-right:1px solid rgba(3, 71, 170, 1);
     border-top:1px solid rgba(3, 71, 170, 1);
-
     div{
         cursor: pointer;
         padding: 3px;

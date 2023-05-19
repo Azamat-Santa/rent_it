@@ -12,13 +12,11 @@ import { reviewApi } from "../../core/api/review";
 import { useSelector } from "react-redux";
 import { bookingApi } from "../../core/api/booking";
 import { useFormik } from "formik";
-import { Map2Gis } from "./../../component/Map2Gis/Map2Gis";
 import { adApi } from "../../core/api/ad";
 import { chatApi } from "../../core/api/chat";
 import { userApi } from "../../core/api/userApi";
 import {
   validationReviewSchema,
-  ValidationSchemaForm,
 } from "../../consts/validationSchema/validationSchemaProduct";
 import { useDebounce } from "../../core/hook/useDebounce";
 import ProductModalCalendar from "../../component/Modal/ProductModalCalendar";
@@ -30,6 +28,8 @@ import FormReview from "../../component/FormReview/FormReview";
 import ProductOwner from "../../component/ProductOwner";
 import ProductImgsCarousel from "../../component/ProductImgsCarousel";
 import { routeEndpoints } from "../../consts/routeEndpoints";
+import { YandexMap } from "../../component/Map2Gis/YandexMap";
+import { Dayjs } from "dayjs";
 
 const Product = ({ searchAd, setSearchAd }: any) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -61,10 +61,7 @@ const Product = ({ searchAd, setSearchAd }: any) => {
   const closeCalendarModal = () => setIsCalendarModalOpen(false);
   const [postReview, { data: postReviewData, isLoading: isLoadingPostReview }] =
     reviewApi.usePostReviewMutation();
-  const [
-    postBoookingAd,
-    { data: postBoookingAdData, isLoading: isLoadingpostBoookingAd },
-  ] = bookingApi.usePostBoookingAdMutation();
+  
   const { data: getReviewData, isLoading: isLoadingGetReview } =
     reviewApi.useGetReviewQuery(productId);
   const [
@@ -91,12 +88,12 @@ const Product = ({ searchAd, setSearchAd }: any) => {
   }, []);
 
   const history = useNavigate();
-  const onPanelChange = (day: any, mode: any) => {
+  const onPanelChange = (day:Dayjs) => {
     setMonth(day.format("M"));
     setYear(day.format("YYYY"));
   };
 
-  const dateFullCellRender = (value: any) => {
+  const dateFullCellRender = (value: Dayjs) => {
     const listData = bookingDataAd.free;
     return (
       <div
@@ -114,34 +111,7 @@ const Product = ({ searchAd, setSearchAd }: any) => {
     );
   };
 
-  const formikFormBooking = useFormik({
-    initialValues: {
-      dateFrom: "",
-      dateTill: "",
-    },
-    validationSchema: ValidationSchemaForm,
-    onSubmit: (value) => {
-      const options = {
-        productId,
-        dateFrom: value.dateFrom,
-        dateTill: value.dateTill,
-        price: datailData?.price,
-      };
-      postBoookingAd(options).then((data: any) => {
-        if (data?.error) {
-          message.error(data?.error?.data?.errors[0], 3);
-          setIsCalendarModalFormOpen(false);
-        }
-        if (data?.data) {
-          setIsCalendarModalFormOpen(false);
-          message.success(
-            "Успешно забронировано, ожидайте подтверждения арендоталем!!!",
-            3
-          );
-        }
-      });
-    },
-  });
+
 
   const formikValidationReview = useFormik({
     initialValues: {
@@ -230,11 +200,11 @@ const Product = ({ searchAd, setSearchAd }: any) => {
               onPanelChange={onPanelChange}
             />
             <ProductModalBookingForm
-              formikFormBooking={formikFormBooking}
+              productId={productId}
               isCalendarModalFormOpen={isCalendarModalFormOpen}
               setIsCalendarModalFormOpen={setIsCalendarModalFormOpen}
               bookingDataAd={bookingDataAd}
-              isLoadingpostBoookingAd={isLoadingpostBoookingAd}
+              datailData={datailData}
             />
 
             <Modal
@@ -306,7 +276,7 @@ const Product = ({ searchAd, setSearchAd }: any) => {
                 ))}
               </div>
               <div className="product__characteristic__left">
-                <Map2Gis res={datailData} />
+                <YandexMap res={datailData} />
               </div>
             </div>
           </div>
